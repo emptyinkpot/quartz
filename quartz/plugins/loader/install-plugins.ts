@@ -8,7 +8,9 @@ import type { PluginSource, QuartzPluginsJson } from "./types"
 function loadPluginSources(): PluginSource[] {
   const yamlPath = path.join(process.cwd(), "quartz.config.yaml")
   if (!fs.existsSync(yamlPath)) {
-    return []
+    throw new Error(
+      "Missing canonical Quartz config: quartz.config.yaml. MyBlogQuartz installs plugins from that single YAML entrypoint.",
+    )
   }
 
   const config = YAML.parse(fs.readFileSync(yamlPath, "utf-8")) as QuartzPluginsJson
