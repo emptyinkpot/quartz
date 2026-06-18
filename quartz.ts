@@ -4,8 +4,13 @@ import * as Plugin from "./quartz/plugins"
 import { MyBlogContentPageType } from "./quartz/myblog/contentPage"
 import { MyBlogFrontmatter } from "./quartz/myblog/frontmatter"
 import { getMyBlogHomeResources, MyBlogHomePageType } from "./quartz/myblog/homeEmitter"
+import {
+  MyBlogLeftSidebar,
+  MyBlogRightSidebar,
+  MyBlogFooter,
+} from "./quartz/myblog/quartzLayout"
 
-const myBlogTheme = {
+const quartzTheme = {
   fontOrigin: "googleFonts" as const,
   cdnCaching: true,
   typography: {
@@ -15,39 +20,38 @@ const myBlogTheme = {
   },
   colors: {
     lightMode: {
-      light: "#f7f3ea",
-      lightgray: "#e7ded2",
-      gray: "#b8aca0",
-      darkgray: "#625a52",
-      dark: "#25211d",
-      secondary: "#6d3b59",
-      tertiary: "#315d50",
-      highlight: "rgba(185, 140, 39, 0.16)",
-      textHighlight: "#f2d26b66",
+      light: "#faf8f8",
+      lightgray: "#e5e5e5",
+      gray: "#b8b8b8",
+      darkgray: "#4e4e4e",
+      dark: "#2b2b2b",
+      secondary: "#284b63",
+      tertiary: "#84a59d",
+      highlight: "rgba(143, 159, 169, 0.15)",
+      textHighlight: "#fff23688",
     },
     darkMode: {
-      light: "#191716",
-      lightgray: "#2f2a27",
-      gray: "#6e665f",
-      darkgray: "#ded7cf",
-      dark: "#f7f3ea",
-      secondary: "#d8a9c3",
-      tertiary: "#8fc7b8",
-      highlight: "rgba(216, 169, 195, 0.16)",
-      textHighlight: "#b98c2766",
+      light: "#161618",
+      lightgray: "#393639",
+      gray: "#646464",
+      darkgray: "#d4d4d4",
+      dark: "#ebebec",
+      secondary: "#7b97aa",
+      tertiary: "#84a59d",
+      highlight: "rgba(143, 159, 169, 0.15)",
+      textHighlight: "#b3aa0288",
     },
   },
 }
 
-const EmptyFooter = () => () => null
 const sharedLayout: Partial<FullPageLayout> = {
   head: Head(),
   header: [],
   beforeBody: [],
   afterBody: [],
-  left: [],
-  right: [],
-  footer: EmptyFooter(),
+  left: [MyBlogLeftSidebar(undefined)],
+  right: [MyBlogRightSidebar(undefined)],
+  footer: MyBlogFooter(undefined),
 }
 
 const config: QuartzConfig = {
@@ -60,7 +64,7 @@ const config: QuartzConfig = {
     locale: "zh-CN",
     baseUrl: "blog.tengokukk.com/myblog-quartz-preview",
     ignorePatterns: ["private", "templates", ".obsidian"],
-    theme: myBlogTheme,
+    theme: quartzTheme,
   },
   plugins: {
     transformers: [MyBlogFrontmatter()],
@@ -79,20 +83,8 @@ const config: QuartzConfig = {
       Plugin.PageTypes.PageTypeDispatcher({
         defaults: sharedLayout,
         byPageType: {
-          "myblog-home": {
-            ...sharedLayout,
-            left: [],
-            right: [],
-            beforeBody: [],
-            afterBody: [],
-          },
-          content: {
-            ...sharedLayout,
-            left: [],
-            right: [],
-            beforeBody: [],
-            afterBody: [],
-          },
+          "myblog-home": sharedLayout,
+          content: sharedLayout,
         },
       }),
     ],
