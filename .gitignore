@@ -12,3 +12,5 @@ replit.nix
 .quartz/
 quartz/cli/tui/dist/
 myblog-quartz-public.tar.gz
+quartz-preview*.log
+plugins/**/dist/.tsbuildinfo

@@ -1,5 +1,4 @@
 import { QuartzConfig } from "./quartz/cfg"
-import { MyBlogFrontmatter } from "./quartz/myblog/frontmatter"
 
 const quartzTheme = {
   fontOrigin: "googleFonts" as const,
@@ -48,7 +47,7 @@ const config: QuartzConfig = {
     theme: quartzTheme,
   },
   plugins: {
-    transformers: [MyBlogFrontmatter()],
+    transformers: [],
     filters: [],
     emitters: [],
     pageTypes: [],

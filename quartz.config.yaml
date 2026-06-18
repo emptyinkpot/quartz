@@ -40,6 +40,11 @@ configuration:
         highlight: rgba(143, 159, 169, 0.15)
         textHighlight: "#b3aa0288"
 plugins:
+  - source: ./plugins/myblog-note-facts
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 25
   - source: github:quartz-community/created-modified-date
     enabled: true
     options:
@@ -192,6 +197,9 @@ plugins:
       position: beforeBody
       priority: 15
       display: all
+  - source: ./plugins/myblog-frontmatter
+    enabled: true
+    order: 6
   - source: github:quartz-community/unlisted-pages
     enabled: true
     options: {}
