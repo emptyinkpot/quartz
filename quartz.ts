@@ -1,14 +1,5 @@
-import { QuartzConfig, FullPageLayout } from "./quartz/cfg"
-import Head from "./quartz/components/Head"
-import * as Plugin from "./quartz/plugins"
-import { MyBlogContentPageType } from "./quartz/myblog/contentPage"
+import { QuartzConfig } from "./quartz/cfg"
 import { MyBlogFrontmatter } from "./quartz/myblog/frontmatter"
-import { getMyBlogHomeResources, MyBlogHomePageType } from "./quartz/myblog/homeEmitter"
-import {
-  MyBlogLeftSidebar,
-  MyBlogRightSidebar,
-  MyBlogFooter,
-} from "./quartz/myblog/quartzLayout"
 
 const quartzTheme = {
   fontOrigin: "googleFonts" as const,
@@ -44,16 +35,6 @@ const quartzTheme = {
   },
 }
 
-const sharedLayout: Partial<FullPageLayout> = {
-  head: Head(),
-  header: [],
-  beforeBody: [],
-  afterBody: [],
-  left: [MyBlogLeftSidebar(undefined)],
-  right: [MyBlogRightSidebar(undefined)],
-  footer: MyBlogFooter(undefined),
-}
-
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "emptyinkpot",
@@ -69,26 +50,8 @@ const config: QuartzConfig = {
   plugins: {
     transformers: [MyBlogFrontmatter()],
     filters: [],
-    emitters: [
-      Plugin.ComponentResources(),
-      Plugin.Assets(),
-      Plugin.Static(),
-      {
-        name: "MyBlogRuntimeResources",
-        async emit() {
-          return []
-        },
-        externalResources: getMyBlogHomeResources,
-      },
-      Plugin.PageTypes.PageTypeDispatcher({
-        defaults: sharedLayout,
-        byPageType: {
-          "myblog-home": sharedLayout,
-          content: sharedLayout,
-        },
-      }),
-    ],
-    pageTypes: [MyBlogHomePageType(), MyBlogContentPageType(), Plugin.PageTypes.NotFoundPageType()],
+    emitters: [],
+    pageTypes: [],
   },
 }
 
