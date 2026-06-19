@@ -1,32 +1,56 @@
 // src/components/MyBlogNoteFacts.tsx
-import { jsx, jsxs } from "preact/jsx-runtime";
+import { jsx, jsxs } from "preact/jsx-runtime"
 var labels = {
   myblogKind: "Kind",
   collection: "Collection",
   feed: "Feed",
-  reader: "Reader"
-};
+  reader: "Reader",
+}
 function stringifyFactValue(value) {
-  if (typeof value === "string" && value.trim().length > 0) return value;
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (typeof value === "string" && value.trim().length > 0) return value
+  if (typeof value === "number" || typeof value === "boolean") return String(value)
   if (Array.isArray(value) && value.length > 0) {
-    return value.map((item) => typeof item === "string" ? item : void 0).filter(Boolean).join(", ");
+    return value
+      .map((item) => (typeof item === "string" ? item : void 0))
+      .filter(Boolean)
+      .join(", ")
   }
-  return void 0;
+  return void 0
 }
 var MyBlogNoteFacts = () => {
   const Component = ({ fileData }) => {
-    const frontmatter = fileData.frontmatter ?? {};
-    const facts = Object.entries(labels).map(([key, label]) => {
-      const value = stringifyFactValue(frontmatter[key]);
-      return value ? { label, value } : void 0;
-    }).filter((fact) => Boolean(fact));
-    if (facts.length === 0) return null;
-    return /* @__PURE__ */ jsx("aside", { class: "myblog-note-facts", "data-myblog-note-facts": true, children: facts.map((fact) => /* @__PURE__ */ jsxs("span", { class: "myblog-note-fact", children: [
-      /* @__PURE__ */ jsx("span", { class: "myblog-note-fact-label", children: fact.label }),
-      /* @__PURE__ */ jsx("span", { class: "myblog-note-fact-value", children: fact.value })
-    ] }, fact.label)) });
-  };
+    const frontmatter = fileData.frontmatter ?? {}
+    const facts = Object.entries(labels)
+      .map(([key, label]) => {
+        const value = stringifyFactValue(frontmatter[key])
+        return value ? { label, value } : void 0
+      })
+      .filter((fact) => Boolean(fact))
+    if (facts.length === 0) return null
+    return /* @__PURE__ */ jsx("aside", {
+      class: "myblog-note-facts",
+      "data-myblog-note-facts": true,
+      children: facts.map((fact) =>
+        /* @__PURE__ */ jsxs(
+          "span",
+          {
+            class: "myblog-note-fact",
+            children: [
+              /* @__PURE__ */ jsx("span", {
+                class: "myblog-note-fact-label",
+                children: fact.label,
+              }),
+              /* @__PURE__ */ jsx("span", {
+                class: "myblog-note-fact-value",
+                children: fact.value,
+              }),
+            ],
+          },
+          fact.label,
+        ),
+      ),
+    })
+  }
   Component.css = `
 .myblog-note-facts {
   display: flex;
@@ -52,10 +76,8 @@ var MyBlogNoteFacts = () => {
 .myblog-note-fact-value {
   color: var(--darkgray);
 }
-`;
-  return Component;
-};
-var MyBlogNoteFacts_default = MyBlogNoteFacts;
-export {
-  MyBlogNoteFacts_default as MyBlogNoteFacts
-};
+`
+  return Component
+}
+var MyBlogNoteFacts_default = MyBlogNoteFacts
+export { MyBlogNoteFacts_default as MyBlogNoteFacts }

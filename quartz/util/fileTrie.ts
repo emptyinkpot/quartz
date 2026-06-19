@@ -1,3 +1,4 @@
+import { ContentDetails } from "../../.quartz/plugins"
 import { FullSlug, joinSegments } from "./path"
 
 interface FileTrieData {
@@ -6,7 +7,7 @@ interface FileTrieData {
   filePath: string
 }
 
-export class FileTrieNode<T extends FileTrieData = FileTrieData> {
+export class FileTrieNode<T extends FileTrieData = ContentDetails> {
   isFolder: boolean
   children: Array<FileTrieNode<T>>
 

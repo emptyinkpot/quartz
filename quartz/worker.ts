@@ -1,6 +1,6 @@
 import sourceMapSupport from "source-map-support"
 sourceMapSupport.install(options)
-import { loadQuartzConfig } from "./plugins/loader/config-loader"
+import cfg from "../quartz"
 import { BuildCtx, WorkerSerializableBuildCtx } from "./util/ctx"
 import { FilePath } from "./util/path"
 import {
@@ -11,8 +11,6 @@ import {
 } from "./processors/parse"
 import { options } from "./util/sourcemap"
 import { MarkdownContent, ProcessedContent } from "./plugins/vfile"
-
-const cfg = await loadQuartzConfig()
 
 // only called from worker thread
 export async function parseMarkdown(

@@ -8,7 +8,7 @@ import { styleText } from "util"
 import { parseMarkdown } from "./processors/parse"
 import { filterContent } from "./processors/filter"
 import { emitContent } from "./processors/emit"
-import { loadQuartzConfig } from "./plugins/loader/config-loader"
+import cfg from "../quartz"
 import { FilePath, joinSegments, slugifyFilePath } from "./util/path"
 import { detectSlugCollisions, formatCollisionWarning } from "./util/slugCollisions"
 import chokidar from "chokidar"
@@ -22,8 +22,6 @@ import { getStaticResourcesFromPlugins } from "./plugins"
 import { randomIdNonSecure } from "./util/random"
 import { ChangeEvent } from "./plugins/types"
 import { minimatch } from "minimatch"
-
-const cfg = await loadQuartzConfig()
 
 function reportSlugCollisions(content: ProcessedContent[]): void {
   const collisions = detectSlugCollisions(content)

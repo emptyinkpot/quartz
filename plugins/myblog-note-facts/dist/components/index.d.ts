@@ -1,1 +1,1 @@
-export { default as MyBlogNoteFacts } from "./MyBlogNoteFacts";
+export { default as MyBlogNoteFacts } from "./MyBlogNoteFacts"

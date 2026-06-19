@@ -40,7 +40,11 @@ configuration:
         highlight: rgba(143, 159, 169, 0.15)
         textHighlight: "#b3aa0288"
 plugins:
-  - source: ./plugins/myblog-note-facts
+  - source:
+      repo: https://github.com/emptyinkpot/quartz.git
+      subdir: plugins/myblog-note-facts
+      name: myblog-note-facts
+      ref: main
     enabled: true
     layout:
       position: beforeBody
@@ -197,7 +201,11 @@ plugins:
       position: beforeBody
       priority: 15
       display: all
-  - source: ./plugins/myblog-frontmatter
+  - source:
+      repo: https://github.com/emptyinkpot/quartz.git
+      subdir: plugins/myblog-frontmatter
+      name: myblog-frontmatter
+      ref: main
     enabled: true
     order: 6
   - source: github:quartz-community/unlisted-pages
