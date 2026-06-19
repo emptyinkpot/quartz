@@ -1,0 +1,47 @@
+{
+  "name": "myblog-note-facts",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json --emitDeclarationOnly && esbuild src/index.ts src/components/index.ts --bundle --platform=node --format=esm --target=node22 --external:@quartz-community/types --external:preact --outdir=dist"
+  },
+  "dependencies": {
+    "@quartz-community/types": "github:quartz-community/types"
+  },
+  "peerDependencies": {
+    "preact": "^10.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "quartz": {
+    "name": "myblog-note-facts",
+    "displayName": "MyBlog Note Facts",
+    "description": "Adds a small Quartz-native metadata strip for Obsidian/MyBlog note fields.",
+    "version": "0.1.0",
+    "author": "emptyinkpot",
+    "category": "component",
+    "components": {
+      "MyBlogNoteFacts": {
+        "name": "MyBlogNoteFacts",
+        "displayName": "MyBlog Note Facts",
+        "description": "Shows MyBlog-specific note facts without replacing Quartz page layout.",
+        "version": "0.1.0",
+        "defaultPosition": "beforeBody",
+        "defaultPriority": 25
+      }
+    }
+  }
+}

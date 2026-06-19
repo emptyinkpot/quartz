@@ -1,0 +1,31 @@
+{
+  "name": "myblog-frontmatter",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json --emitDeclarationOnly && esbuild src/index.ts --bundle --platform=node --format=esm --target=node22 --external:@quartz-community/types --outfile=dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@quartz-community/types": "github:quartz-community/types"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "quartz": {
+    "name": "myblog-frontmatter",
+    "displayName": "MyBlog Frontmatter",
+    "description": "Normalizes MyBlog/Obsidian frontmatter after Quartz parses it with native plugins.",
+    "version": "0.1.0",
+    "author": "emptyinkpot",
+    "category": "transformer",
+    "defaultOrder": 6
+  }
+}

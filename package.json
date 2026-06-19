@@ -1,10 +1,10 @@
 {
-  "name": "@jackyzha0/quartz",
-  "description": "🌱 publish your digital garden and notes as a website",
+  "name": "@emptyinkpot/myblog-quartz",
+  "description": "Quartz v5-native rewrite of the emptyinkpot MyBlog runtime surface",
   "private": true,
   "version": "5.0.0",
   "type": "module",
-  "author": "jackyzha0 <j.zhao2k19@gmail.com>",
+  "author": "emptyinkpot",
   "license": "MIT",
   "homepage": "https://quartz.jzhao.xyz",
   "repository": {

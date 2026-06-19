@@ -28,27 +28,21 @@ import { componentRegistry } from "../../components/registry"
 import { getCondition } from "./conditions"
 
 const CONFIG_YAML_PATH = path.join(process.cwd(), "quartz.config.yaml")
-const DEFAULT_CONFIG_YAML_PATH = path.join(process.cwd(), "quartz.config.default.yaml")
-const LEGACY_PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.json")
-const LEGACY_DEFAULT_PLUGINS_JSON_PATH = path.join(process.cwd(), "quartz.plugins.default.json")
 
 function resolveConfigPath(): string {
   if (fs.existsSync(CONFIG_YAML_PATH)) return CONFIG_YAML_PATH
-  if (fs.existsSync(LEGACY_PLUGINS_JSON_PATH)) return LEGACY_PLUGINS_JSON_PATH
-  if (fs.existsSync(DEFAULT_CONFIG_YAML_PATH)) return DEFAULT_CONFIG_YAML_PATH
-  if (fs.existsSync(LEGACY_DEFAULT_PLUGINS_JSON_PATH)) return LEGACY_DEFAULT_PLUGINS_JSON_PATH
-  return CONFIG_YAML_PATH
+  throw new Error(
+    `Missing canonical Quartz config: ${path.relative(
+      process.cwd(),
+      CONFIG_YAML_PATH,
+    )}. MyBlogQuartz uses quartz.config.yaml as its only runtime config entrypoint.`,
+  )
 }
-function readPluginsJson(): QuartzPluginsJson | null {
+
+function readPluginsJson(): QuartzPluginsJson {
   const configPath = resolveConfigPath()
-  if (!fs.existsSync(configPath)) {
-    return null
-  }
   const raw = fs.readFileSync(configPath, "utf-8")
-  if (configPath.endsWith(".yaml") || configPath.endsWith(".yml")) {
-    return YAML.parse(raw) as QuartzPluginsJson
-  }
-  return JSON.parse(raw) as QuartzPluginsJson
+  return YAML.parse(raw) as QuartzPluginsJson
 }
 
 function extractPluginName(source: PluginSource): string {
@@ -239,12 +233,6 @@ export async function loadQuartzConfig(
   configOverrides?: Partial<GlobalConfiguration>,
 ): Promise<QuartzConfig> {
   const json = readPluginsJson()
-
-  if (!json) {
-    // Fallback: import old-style config directly
-    const oldConfig = await import("../../../quartz")
-    return oldConfig.default
-  }
 
   const configuration = {
     ...(json.configuration as unknown as GlobalConfiguration),
@@ -621,12 +609,6 @@ export async function loadQuartzLayout(layoutOverrides?: {
   byPageType: Record<string, Partial<FullPageLayout>>
 }> {
   const json = readPluginsJson()
-
-  if (!json) {
-    // Fallback: import old-style layout directly
-    const oldLayout = await import("../../../quartz")
-    return oldLayout.layout
-  }
 
   const enabledWithLayout = json.plugins.filter((e) => e.enabled && e.layout)
   const layoutConfig = json.layout ?? {}
