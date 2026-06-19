@@ -6,6 +6,8 @@
 
 This fork keeps Quartz core infrastructure aligned with the upstream `jackyzha0/quartz` `v5` source. MyBlog-specific adaptation must live in plugins, content, and configuration extension surfaces only.
 
+The production GitHub Pages deployment is `https://quartz.tengokukk.com/`.
+
 Current local extensions are:
 
 - `plugins/myblog-frontmatter`

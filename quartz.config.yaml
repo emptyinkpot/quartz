@@ -6,7 +6,7 @@ configuration:
   enablePopovers: true
   analytics: null
   locale: zh-CN
-  baseUrl: blog.tengokukk.com/myblog-quartz-preview
+  baseUrl: quartz.tengokukk.com
   ignorePatterns:
     - private
     - templates
