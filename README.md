@@ -10,10 +10,31 @@ The production GitHub Pages deployment is `https://quartz.tengokukk.com/`.
 
 Current local extensions are:
 
+- `plugins/github-content-source`
+- `plugins/og-image`
 - `plugins/myblog-frontmatter`
 - `plugins/myblog-note-facts`
 - `content/`
 - `quartz.config.yaml`
+
+`plugins/github-content-source` is the content-source boundary for GitHub-hosted
+Markdown. It is a Quartz companion plugin invoked before Quartz scans
+`content/`, because Quartz processing plugins run after file discovery. It
+reads configured files from GitHub and projects them into the generated
+directory `content/github/`. That directory is intentionally not git-ignored
+because Quartz file discovery honors `.gitignore`; the canonical build command
+cleans it after the site is generated. The current configuration lives in
+`github-content-source.config.json`; the default source is
+`emptyinkpot/obsidian:docs` projected to `content/github/obsidian`. Run
+`npm run sync:github-content` to refresh and inspect the projection locally, or
+`npm run build:site` to sync, build, and clean the projection together.
+For private GitHub repositories, provide a read-only `OBSIDIAN_GITHUB_TOKEN`
+environment variable locally and as a GitHub Actions repository secret.
+
+`plugins/og-image` is a repo-local extension of the upstream Quartz Community
+OG image emitter. It keeps social preview generation in the plugin boundary and
+normalizes Unicode keycap emoji codepoints before looking them up in Quartz's
+existing emoji asset map.
 
 Do not carry MyBlog behavior by patching Quartz core runtime files such as `quartz/build.ts`, `quartz/worker.ts`, component internals, plugin loader internals, or package infrastructure.
 

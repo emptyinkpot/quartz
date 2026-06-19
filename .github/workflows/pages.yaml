@@ -46,7 +46,9 @@ jobs:
         run: npm run check
 
       - name: Build Quartz
-        run: npx quartz build -d content
+        run: npm run build:site
+        env:
+          OBSIDIAN_GITHUB_TOKEN: ${{ secrets.OBSIDIAN_GITHUB_TOKEN }}
 
       - name: Set custom domain
         run: printf '%s\n' 'quartz.tengokukk.com' > public/CNAME

@@ -1,0 +1,13 @@
+[
+  {
+    "owner": "emptyinkpot",
+    "repo": "obsidian",
+    "ref": "main",
+    "sourcePath": "docs",
+    "targetDir": "content/github/obsidian",
+    "include": ["**/*.md", "**/*.mdx"],
+    "exclude": ["private/**", "templates/**", ".obsidian/**"],
+    "tokenEnv": "OBSIDIAN_GITHUB_TOKEN",
+    "concurrency": 8
+  }
+]

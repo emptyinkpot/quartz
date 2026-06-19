@@ -1,0 +1,37 @@
+{
+  "name": "github-content-source",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "quartz-github-content-source": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json --emitDeclarationOnly && esbuild src/index.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/index.js && esbuild src/cli.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/cli.js --banner:js=\"#!/usr/bin/env node\""
+  },
+  "dependencies": {
+    "@quartz-community/types": "github:quartz-community/types"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "quartz": {
+    "name": "github-content-source",
+    "displayName": "GitHub Content Source",
+    "description": "Projects Markdown files from a GitHub repository into Quartz content before build.",
+    "version": "0.1.0",
+    "author": "emptyinkpot",
+    "category": "transformer",
+    "defaultOrder": 1,
+    "defaultOptions": {
+      "configPath": "github-content-source.config.json"
+    }
+  }
+}

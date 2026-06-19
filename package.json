@@ -13,6 +13,9 @@
   },
   "scripts": {
     "quartz": "./quartz/bootstrap-cli.mjs",
+    "sync:github-content": "npm --prefix plugins/github-content-source run build && node plugins/github-content-source/dist/cli.js github-content-source.config.json",
+    "clean:github-content": "node -e \"require('fs').rmSync('content/github', { recursive: true, force: true })\"",
+    "build:site": "npm run sync:github-content && npx quartz build -d content && npm run clean:github-content",
     "docs": "npx quartz build --serve -d docs",
     "check": "tsc --noEmit && npx prettier . --check",
     "format": "npx prettier . --write",
